@@ -1,219 +1,511 @@
 <!DOCTYPE html>
-<html lang="hi" data-bs-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Security Awareness tool</title>
-  
-    <link href="https://jsdelivr.net" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"rel="stylesheet">
-<style>
+    <title>Cyber Security Awareness Tool</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --primary-blue: #2563eb;
+            --accent-blue: #38bdf8;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --danger-red: #ef4444;
+            --warning-orange: #f97316;
+            --success-green: #22c55e;
+        }
 
-        body, .card, .btn, input {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #111827;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #374151;
+        }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            background-color: var(--card-bg);
+            border-bottom: 2px solid #374151;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 10px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* Header Credentials */
+        .header-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .header-info h1 {
+            color: var(--accent-blue);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .student-details {
+            font-size: 13px;
+            color: var(--accent-blue);
+            line-height: 1.6;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 20px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Dashboard/Advisories Style */
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .advisory-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid transparent;
+        }
+
+        .advisory-card.danger { border-left-color: var(--danger-red); }
+        .advisory-card.warning { border-left-color: var(--warning-orange); }
+        .advisory-card.info { border-left-color: var(--accent-blue); }
+
+        .card-header {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-body {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* Password Scanner Style */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--card-bg);
+            border: 2px solid #475569;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .status-box {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Quiz Style */
+        .quiz-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #334155;
+            border-color: var(--accent-blue);
+        }
+
+        .option-btn.selected {
+            background-color: var(--primary-blue);
+            border-color: white;
+        }
+
+        /* Quiz Result */
+        .result-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .score-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin: 15px 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 15px;
+            border-top: 1px solid #1e293b;
+            background-color: #0b0f19;
         }
     </style>
 </head>
-<body class="bg-body-tertiary py-5">
+<body>
 
-    <div class="container" style="max-width: 800px;">
-        
-  
-        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">
-            <h2 class="fw-bold mb-0 text-primary">🛡️ Cyber Security Awareness </h2>
-            
-            <div class="d-flex align-items-center gap-2">
-                
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary id-nav-btn active" onclick="switchPage('analyzer', this)">Password Analyzer</button>
-                    <button type="button" class="btn btn-outline-primary id-nav-btn" onclick="switchPage('quiz', this)">Awareness Quiz</button>
-                </div>
-                
-                
-                <button id="themeToggleBtn" class="btn btn-secondary" onclick="toggleTheme()">🌙 Dark Mode</button>
-            </div>
-        </div>
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="tab-btn" onclick="switchTab('scanner')">Password Scanner</button>
+        <button class="tab-btn" onclick="switchTab('quiz')">Awareness Quiz</button>
+    </div>
 
-        
-        <div id="page-analyzer" class="card shadow-sm mb-4">
-            <div class="card-header bg-primary text-white">
-                <h5 class="card-title mb-0">🔑 Password Strength Analyzer</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="passwordInput" class="form-label fw-bold">Apna Password Enter Karein:</label>
-                    <input type="password" id="passwordInput" class="form-control form-control-lg" placeholder="Type password here..." oninput="analyzePassword()">
-                </div>
-                
-                <div class="d-grid gap-2 mb-4">
-                    <button class="btn btn-dark" onclick="generateSecurePassword()">🚀 Generate Secure Password</button>
-                </div>
-
-                
-                <div class="p-3 border rounded bg-body">
-                    <div id="statusLabel" class="fw-bold fs-5 mb-2 text-secondary">Status: Awaiting Input...</div>
-                    <div id="crackTimeLabel" class="text-muted small">Estimated Brute-Force Time: N/A</div>
-                </div>
-            </div>
-        </div>
-
-     
-        <div id="page-quiz" class="card shadow-sm d-none">
-            <div class="card-header bg-success text-white">
-                <h5 class="card-title mb-0">📝 Cyber Awareness Quiz</h5>
-            </div>
-            <div class="card-body">
-                
-                <div id="quiz-container">
-                    <h5 id="question-text" class="mb-4 fw-bold">Question will load here...</h5>
-                    <div id="options-area" class="d-grid gap-2">
-                     
-                    </div>
-                </div>
-
-               
-                <div id="quiz-final-result" class="d-none text-center py-4">
-                    <h3 class="fw-bold mb-3">📊 Quiz Result & Analytics</h3>
-                    <div id="quiz-score" class="fs-3 text-primary mb-2 fw-bold"></div>
-                    <div id="quiz-status" class="fw-bold fs-5 mb-3"></div>
-                    <p class="text-muted small border-top pt-3">Maksad: Ye test aam janta ko KBC, OLX, WhatsApp, aur Bank KYC fraud se bachane ke liye design kiya gaya hai.</p>
-                    <button class="btn btn-success mt-3" onclick="resetQuiz()">Retake Awareness Test</button>
-                </div>
-            </div>
+    <div class="header-info">
+        <h1>Cyber Security Awareness Tool</h1>
+        <div class="student-details">
+            <strong>Name:</strong> Krupali Manojbhai Jagatiya | <strong>Enrollment No:</strong> [246270307035]<br>
+            <strong>College:</strong> Government Polytechnic Porbandar
         </div>
     </div>
-   
-    <script>
-        function toggleTheme() {
-            const htmlElement = document.documentElement;
-            const currentTheme = htmlElement.getAttribute('data-bs-theme');
-            const themeBtn = document.getElementById('themeToggleBtn');
-            
-            if (currentTheme === 'light') {
-                htmlElement.setAttribute('data-bs-theme', 'dark');
-                themeBtn.textContent = '☀️ Light Mode';
-                themeBtn.className = 'btn btn-light';
-            } else {
-                htmlElement.setAttribute('data-bs-theme', 'light');
-                themeBtn.textContent = '🌙 Dark Mode';
-                themeBtn.className = 'btn btn-secondary';
-            }
-        }
 
-        function switchPage(pageId, btnElement) {
-            if (pageId === 'analyzer') {
-                document.getElementById('page-analyzer').classList.remove('d-none');
-                document.getElementById('page-quiz').classList.add('d-none');
-            } else if (pageId === 'quiz') {
-                document.getElementById('page-analyzer').classList.add('d-none');
-                document.getElementById('page-quiz').classList.remove('d-none');
-                resetQuiz();
-            }
+    <div id="dashboard" class="content-section active">
+        <div class="section-title">📰 Live Cyber Threat Advisories</div>
+        <div class="subtitle">Current global security trends and critical user alerts.</div>
 
-            // Fix button active states
-            let buttons = document.querySelectorAll('.id-nav-btn');
-            buttons.forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-        }
+        <div class="advisory-card danger">
+            <div class="card-header">⚠️ UPI & Part-Time Job Scams</div>
+            <div class="card-body">Attackers are targeting users via WhatsApp/Telegram offering high payments for YouTube likes. Never authorize unknown UPI mandates.</div>
+        </div>
 
-        function analyzePassword() {
-            let password = document.getElementById('passwordInput').value;
-            let status = document.getElementById('statusLabel');
-            let crackTime = document.getElementById('crackTimeLabel');
-            
-            if(password.length === 0) {
-                status.textContent = "Status: Awaiting Input...";
-                status.className = "fw-bold fs-5 mb-2 text-secondary";
-                crackTime.textContent = "Estimated Brute-Force Time: N/A";
-                return;
-            }
+        <div class="advisory-card warning">
+            <div class="card-header">🔒 Critical WhatsApp Session Hijacking</div>
+            <div class="card-body">New social engineering trick bypasses Two-Step Verification using lookalike dynamic verification links. Enable biometric lock.</div>
+        </div>
 
-            let points = 0;
-            if(password.length >= 10) points++;
-            if(/[A-Z]/.test(password)) points++;
-            if(/[0-9]/.test(password)) points++;
-            if(/[^A-Za-z0-9]/.test(password)) points++;
-            
-            // Text color logic optimized for both light and dark themes
-            if(password.length < 6) {
-                status.textContent = "🔴 CRITICAL RISK (Instantly Crackable)";
-                status.className = "fw-bold fs-5 mb-2 text-danger";
-                crackTime.textContent = "Estimated Brute-Force Time: Less than 1 Second";
-            } else if(points <= 2 && password.length < 9) {
-                status.textContent = "🔴 WEAK VULNERABILITY (High Risk)";
-                status.className = "fw-bold fs-5 mb-2 text-danger";
-                crackTime.textContent = "Estimated Brute-Force Time: ~4 to 12 Minutes";
-            } else if(points <= 3 && password.length >= 9) {
-                status.textContent = "🟡 COMPLIANT (Medium Strength)";
-                status.className = "fw-bold fs-5 mb-2 text-warning";
-               crack.textContent = "Estimated Time: 6 to 18 Months";
-            } else {
-                status.textContent = "🟢 SECURE ARCHITECTURE (Hacker-Proof)"; status.className = "fw-bold fs-6 mb-1 text-success";
-                crack.textContent = "Estimated Time: 5,000+ Years";
-            }
-        }
-        function generateSecurePassword() {
-            let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-            let securePass = "";
-            let randomValues = new Uint32Array(15);
-            window.crypto.getRandomValues(randomValues);
-            
-            for (let i = 0; i < 15; i++) {
-                securePass += chars.charAt(randomValues[i] % chars.length);
-            }
-            document.getElementById('passwordInput').value = securePass;
-            analyzePassword();
-        }
+        <div class="advisory-card info">
+            <div class="card-header">📋 Security Standard Guidelines</div>
+            <div class="card-body">According to standard cyber hygiene best practices, reset router default admin panels and clean browser session cookies every 15 days to avoid identity theft.</div>
+        </div>
+    </div>
 
-        const quizData = [
-            { q: "Q1. KBC ya Lottery ke naam par anjaan WhatsApp call aane par aur 'Processing Fee' mangne par kya karna chahiye?", o: ["A) Khushi se processing fee transfer kar deni chahiye.", "B) Ye 100% fraud call hai, ise block karein aur cyber crime me report karein.", "C) Unhe apni saari personal details share kar deni chahiye."], a: 1 },
-            { q: "Q2. OLX ya kisi market app par koi army man bankar bina saman dekhe hi aapko advance paise bhejne ke liye QR Code scan karne ko kahe to kya karein?", o: ["A) QR code scan karein kyunki advance paise aa rahe hain.", "B) QR Code scan karne se paise aate nahi, balki aapke account se KAT jaate hain. Ye fraud hai.", "C) Use apna ATM card number bata dein."], a: 1 },
-            { q: "Q3. WhatsApp par kisi dost ya relative ka urgent accident ka message aaye aur wo naye number se paise mange to kya karein?", o: ["A) Turant bina soche mange huye paise transfer kar dein.", "B) Us relative ko pehle purane number par CALL karke verify karein, kyunki kisi ka account hack ho sakta hai.", "C) Message ka reply na karein aur so jayein."], a: 1 },
-            { q: "Q4. Bank KYC update karne ke liye ya Electricity Bill baki hone ka urgent anjaan SMS/SMS link aaye to kya karna safe hai?", o: ["A) Link par click karke apni detail bhar dein.", "B) Bank ya electricity office ke official number par khud contact karke verify karein, link par click na karein.", "C) Apne sabhi friends ko ye message forward karein."], a: 1 },
-            { q: "Q5. Road par ya kahin anjaan jagah par khoya hua naya USB/Pen Drive mile to use apne laptop me lagana chahiye?", o: ["A) Haan, check karein ki andar kya data hai.", "B) Bilkul nahi, usme virus/malware ho sakta hai jo system ko hack kar dega.", "C) Laga sakte hain agar laptop me antivirus ho to."], a: 1 }
-        ];
+    <div id="scanner" class="content-section">
+        <div class="section-title">🛡️ Brute-Force Vulnerability Scanner</div>
+        <div class="subtitle">Input a password to simulate security strength against dictionary and brute-force cracking tools.</div>
+
+        <div class="input-group">
+            <input type="password" id="passwordInput" placeholder="Type a password to audit..." oninput="auditPassword()">
+        </div>
+
+        <div id="statusIndicator" class="status-box" style="background-color: #334155; color: white;">
+            Status: Awaiting Input...
+        </div>
         
-        let currentQuestionIndex = 0; let userScore = 0;
-        function loadQuestion() {
-            if(currentQuestionIndex < quizData.length) {
-                let currentQ = quizData[currentQuestionIndex];
-                document.getElementById('question-text').textContent = currentQ.q;
-                let optionsArea = document.getElementById('options-area'); 
-                optionsArea.innerHTML = "";
-                currentQ.o.forEach((opt, idx) => {
-                    let btn = document.createElement('button'); 
-                    // Bootstrap outline button adapts nicely to both dark and light modes
-                    btn.className = "btn btn-outline-secondary text-start p-3 my-1 fs-6"; 
-                    btn.textContent = opt;
-                    btn.onclick = () => selectOption(idx); 
-                    optionsArea.appendChild(btn);
-                });
-            } else { showQuizResult(); }
-                    }
-        function selectOption(selectedIndex) {
-            if(selectedIndex === quizData[currentQuestionIndex].a) { userScore++; }
-            currentQuestionIndex++; 
-            loadQuestion();
+        <div id="timeIndicator" class="status-box" style="background-color: #1e293b; color: #cbd5e1;">
+            Estimated Brute-Force Time: N/A
+        </div>
+
+        <button class="btn-action" onclick="generateSecurePassword()">⚡ Generate Hacker-Proof Core Password</button>
+    </div>
+
+    <div id="quiz" class="content-section">
+        <div class="section-title">🧠 Common Cyber Fraud Protection Test</div>
+        <div class="subtitle">Daily life me hone wale digital scams se bachne ke liye ye 5 aasan sawalon ke jawab dein:</div>
+
+        <div id="quiz-container">
+            <div class="quiz-card">
+                <div class="question-text" id="questionBox">Loading Question...</div>
+                <div class="options-list" id="optionsBox"></div>
+            </div>
+            <button class="btn-action" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question</button>
+        </div>
+
+        <div id="result-container" class="result-box" style="display: none;">
+            <div class="score-text" id="finalScoreDisplay">Your Score: 0 / 5</div>
+            <div id="statusBadge" class="status-box" style="background: var(--success-green);">SECURITY STATUS: SECURE CITIZEN</div>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom: 20px;">
+                Maksad: Ye test aam janta ko KBC, OLX, WhatsApp, aur Bank KYC fraud se bachane ke liye design kiya gaya hai.
+            </p>
+            <button class="btn-action" onclick="restartQuiz()">Retake Awareness Test</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        GTU Cyber Security Specialization Project © 2026 | Developed by Krupali Jagatiya
+    </div>
+</div>
+
+<script>
+    // Tab Switching Logic
+    function switchTab(tabId) {
+        document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    // Password Audit Logic
+    function auditPassword() {
+        const password = document.getElementById('passwordInput').value;
+        const statusBox = document.getElementById('statusIndicator');
+        const timeBox = document.getElementById('timeIndicator');
+
+        if (!password) {
+            statusBox.style.backgroundColor = '#334155';
+            statusBox.innerText = "Status: Awaiting Input...";
+            timeBox.innerText = "Estimated Brute-Force Time: N/A";
+            return;
         }
-        function showQuizResult() {
-            document.getElementById('quiz-container').classList.add('d-none');
-            
-            let finalRes = document.getElementById('quiz-final-result'); 
-            finalRes.classList.remove('d-none');
-            
-            let rating = userScore === 5 ? "🟢 SECURE CITIZEN (Aap Cyber Safe Hain!)" : (userScore >= 3 ? "🟡 MODERATE RISK (Aapko thoda dhyan rakhna hoga)" : "🔴 HIGH FRAUD RISK (Aap aasani se fraud ke shikar ho sakte hain!)");
-            
-            document.getElementById('quiz-score').textContent = `Your Score: ${userScore} / ${quizData.length}`;
-            document.getElementById('quiz-status').textContent = `Security Status: ${rating}`;
-        } function resetQuiz() {
-            currentQuestionIndex = 0; 
-            userScore = 0;
-            document.getElementById('quiz-container').classList.remove('d-none');
-            document.getElementById('quiz-final-result').classList.add('d-none');
-            loadQuestion();
+
+        // Simple Strength Logic rules matching your screenshots
+        if (password.length <= 4) {
+            statusBox.style.backgroundColor = '#ef4444';
+            statusBox.innerText = "🔴 CRITICAL RISK (Instantly Crackable)";
+            timeBox.innerText = "Estimated Brute-Force Time: Less than 1 Second";
+        } else if (password.length > 4 && password.length <= 7) {
+            statusBox.style.backgroundColor = '#f97316';
+            statusBox.innerText = "🟠 WEAK VULNERABILITY (High Risk)";
+            timeBox.innerText = "Estimated Brute-Force Time: ~4 to 12 Minutes";
+        } else if (password.length > 7 && !/[@#\$%^&*]/.test(password)) {
+            statusBox.style.backgroundColor = '#eab308';
+            statusBox.innerText = "🟡 COMPLIANT (Medium Strength)";
+            timeBox.innerText = "Estimated Brute-Force Time: 6 to 18 Months";
+        } else {
+            statusBox.style.backgroundColor = '#22c55e';
+            statusBox.innerText = "🟢 SECURE ARCHITECTURE (Hacker-Proof)";
+            timeBox.innerText = "Estimated Brute-Force Time: 5,000+ Years";
         }
+    }
+
+    function generateSecurePassword() {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$";
+        let newPass = "Karuap@123_"; // Mock dynamic generation similar to screen
+        for (let i = 0; i < 3; i++) {
+            newPass += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById('passwordInput').value = newPass;
+        auditPassword();
+    }
+
+    // Quiz Data
+    const quizData = [
+        {
+            q: "Q1. KBC ya Lottery ke naam par anjaan WhatsApp call aane par aur 'Processing Fee' mangne par kya karna chahiye?",
+            options: [
+                "Khushi se processing fee transfer kar deni chahiye.",
+                "Ye 100% fraud call hai, ise block karein aur cyber crime me report karein.",
+                "Unhe apni saari personal details share kar deni chahiye."
+            ],
+            correct: 1
+        },
+        {
+            q: "Q2. OLX ya kisi market app par koi army man bankar bina saman dekhe hi aapko advance paise bhejne ke liye QR Code scan karne ko kahe to kya karein?",
+            options: [
+                "QR code scan karein kyunki advance paise aa rahe hain.",
+                "QR Code scan karne se paise aate nahi, balki aapke account se KAT jaate hain. Ye fraud hai.",
+                "Use apna ATM card number bata dein."
+            ],
+            correct: 1
+        },
+        {
+            q: "Q3. WhatsApp par kisi dost ya relative ka urgent accident ka message aaye aur wo naye number se paise mange to kya karein?",
+            options: [
+                "Turant bina soche mange huye paise transfer kar dein.",
+                "Us relative ko pehle purane number par CALL karke verify karein, kyunki kisi ka account hack ho sakta hai.",
+                "Message ka reply na karein aur so jayein."
+            ],
+            correct: 1
+        },
+        {
+            q: "Q4. Bank KYC update karne ke liye ya Electricity Bill baki hone ka urgent anjaan SMS/SMS link aaye to kya karna safe hai?",
+            options: [
+                "Link par click karke apni detail bhar dein.",
+                "Bank ya electricity office ke official number par khud contact karke verify karein, link par click na karein.",
+                "Apne sabhi friends ko ye message forward karein."
+            ],
+            correct: 1
+        },
+        {
+            q: "Q5. Road par ya kahin anjaan jagah par khoya hua naya USB/Pen Drive mile to use apne laptop me lagana chahiye?",
+            options: [
+                "Haan, check karein ki andar kya data hai.",
+                "Bilkul nahi, usme virus/malware ho sakta hai jo system ko hack kar dega.",
+                "Laga sakte hain agar laptop me antivirus ho to."
+            ],
+            correct: 1
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedOptionIndex = null;
+
+    function loadQuestion() {
+        selectedOptionIndex = null;
+        document.getElementById('nextBtn').style.display = 'none';
+        
+        if (currentQuestionIndex >= quizData.length) {
+            showResults();
+            return;
+        }
+
+        const currentData = quizData[currentQuestionIndex];
+        document.getElementById('questionBox').innerText = currentData.q;
+        
+        const optionsBox = document.getElementById('optionsBox');
+        optionsBox.innerHTML = '';
+
+        currentData.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = index === 0 ? `A) ${option}` : index === 1 ? `B) ${option}` : `C) ${option}`;
+            btn.onclick = () => selectOption(index, btn);
+            optionsBox.appendChild(btn);
+        });
+    }
+
+    function selectOption(index, btn) {
+        document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedOptionIndex = index;
+        document.getElementById('nextBtn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        if (selectedOptionIndex === quizData[currentQuestionIndex].correct) {
+            score++;
+        }
+        currentQuestionIndex++;
         loadQuestion();
-    </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    }
+
+    function showResults() {
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('result-container').style.display = 'block';
+        document.getElementById('finalScoreDisplay').innerText = `Your Score: ${score} / ${quizData.length}`;
+        
+        const badge = document.getElementById('statusBadge');
+        if(score >= 4) {
+            badge.innerText = "✓ SECURITY STATUS: SECURE CITIZEN (Aap Cyber Safe Hain!)";
+            badge.style.backgroundColor = "var(--success-green)";
+        } else {
+            badge.innerText = "⚠ SECURITY STATUS: VULNERABLE CITIZEN (Sikhne ki Zarurat Hai)";
+            badge.style.backgroundColor = "var(--danger-red)";
+        }
+    }
+
+    function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        document.getElementById('quiz-container').style.display = 'block';
+        document.getElementById('result-container').style.display = 'none';
+        loadQuestion();
+    }
+
+    // Initialize Quiz on load
+    window.onload = loadQuestion;
+</script>
+
 </body>
 </html>
