@@ -283,11 +283,12 @@
         <div class="section-title">🛡️ Brute-Force Vulnerability Scanner</div>
         <div class="subtitle">Input a password to simulate security strength against dictionary and brute-force cracking tools.</div>
 
-        <div class="input-group">
-            <input type="password" id="passwordInput" placeholder="Type a password to audit..." oninput="auditPassword()">
-            <input type="checkbox" id="togglePassword" onchange="togglePasswordVisibility()" style="margin-top: 10px; cursor: pointer;"> 
-    <label for="togglePassword" style="font-size: 13px; color: var(--text-muted); cursor: pointer;">Show Password</label>
-        </div>
+        <div class="input-group" style="position: relative;">
+    <input type="password" id="passwordInput" placeholder="Type a password to audit..." oninput="auditPassword()" style="width: 100%; padding-right: 60px;">
+    
+    <span id="toggleTextBtn" onclick="togglePasswordVisibility()" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 13px; color: var(--accent-blue); font-weight: bold; user-select: none;">Show</span>
+</div>
+
   
         <div id="statusIndicator" class="status-box" style="background-color: #334155; color: white;">
             Status: Awaiting Input...
@@ -377,17 +378,19 @@
         document.getElementById('passwordInput').value = newPass;
         auditPassword();
     }
-    function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('passwordInput');
-    const checkbox = document.getElementById('togglePassword');
     
-    if (checkbox.checked) {
-        passwordInput.type = "text";
-    } else {
-        passwordInput.type = "password";
-    }
-}
-
+     function togglePasswordVisibility() {
+         const passwordInput = document.getElementById('passwordInput');
+         const toggleTextBtn = document.getElementById('toggleTextBtn');
+    
+            if (passwordInput.type === "password") {
+               passwordInput.type = "text";
+               toggleTextBtn.innerText = "Hide";
+           } else {
+                passwordInput.type = "password";
+                toggleTextBtn.innerText = "Show";
+      }
+   }
 
     // Quiz Data
     const quizData = [
