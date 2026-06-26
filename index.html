@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security Awareness Tool</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0b0f19; color: #e2e8f0; text-align: center; padding: 20px; margin: 0; }
+        .header-main { margin-bottom: 30px; background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; }
+        h1 { color: #3b82f6; font-size: 24px; margin: 0; }
+        .sub { color: #94a3b8; font-size: 15px; margin-top: 5px; }
+        .student-info { font-size: 14px; color: #38bdf8; margin-top: 10px; font-weight: bold; line-height: 1.6; }
+        .grid-container { display: flex; flex-direction: column; gap: 20px; max-width: 600px; margin: 0 auto; }
+        .section-box { background: #1e293b; padding: 25px; border-radius: 12px; border: 1px solid #334155; text-align: left; }
+        h3 { color: #f1f5f9; margin-top: 0; border-bottom: 2px solid #334155; padding-bottom: 8px; }
+        input[type="text"] { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 2px solid #475569; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
+        .result { margin: 15px 0; font-weight: bold; font-size: 16px; padding: 12px; border-radius: 6px; background: #0f172a; text-align: center; }
+        button { background: #2563eb; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; }
+        button:hover { background: #1d4ed8; }
+        .quiz-option { background: #0f172a; padding: 10px; margin: 8px 0; border-radius: 6px; cursor: pointer; border: 1px solid #475569; }
+        .quiz-option:hover { background: #334155; }
+        .news-card { background: #0f172a; padding: 12px; margin-top: 10px; border-radius: 6px; border-left: 4px solid #ef4444; }
+        .news-title { font-weight: bold; color: #f8fafc; font-size: 15px; }
+        .news-desc { font-size: 13px; color: #94a3b8; margin-top: 5px; }
+        .footer { margin-top: 40px; font-size: 13px; color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <div class="header-main">
+        <h1>Cyber Security Awareness Tool</h1>
+        <div class="sub">GTU 2-Week Internship Specialization Project</div>
+        
+        <!-- 📝 YAHAN APNI DETAILS BADLIYE -->
+        <div class="student-info">
+            Name: Krupali Manojbhai Jagatiya  <br>
+            Enrollment No: 246270307035 <br>
+            College: Government Polytechnic Porbandar 
+        </div>
+    </div>
+
+    <div class="grid-container">
+        
+        <!-- MODULE 1: PASSWORD ANALYZER -->
+        <div class="section-box">
+            <h3>🛡️ Module 1: Password Strength & Crack Time Counter</h3>
+            <p style="font-size: 14px; color: #94a3b8; margin: 0 0 15px 0;">An interactive tool to analyze password complexity against brute-force attacks.</p>
+            <input type="text" id="passwordInput" placeholder="Enter password to analyze..." oninput="analyzePassword()">
+            <div id="statusLabel" class="result">Status: Waiting for input...</div>
+            <div id="crackTimeLabel" class="result" style="color: #60a5fa;">Estimated Crack Time: N/A</div>
+            <button onclick="generateSecurePassword()">⚡ Generate Hacker-Proof Password</button>
+        </div>
+
+        <!-- MODULE 2: SECURITY AWARENESS QUIZ -->
+        <div class="section-box">
+            <h3>🧠 Module 2: Security Awareness Quiz</h3>
+            <p style="font-size: 14px; color: #94a3b8; margin: 0 0 15px 0;">Interactive test for phishing awareness education.</p>
+            <div id="quiz-box">
+                <p id="question-text" style="font-weight: bold; color: #f8fafc;">Q1: If you receive an urgent SMS asking to click a link to update bank KYC, what should you do?</p>
+                <div class="quiz-option" onclick="checkQuiz(false)">A) Click the link immediately and check.</div>
+                <div class="quiz-option" onclick="checkQuiz(true)">B) Ignore/Block the number and contact the bank directly.</div>
+                <div class="quiz-option" onclick="checkQuiz(false)">C) Forward the message to friends.</div>
+            </div>
+            <div id="quiz-result" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- MODULE 3: THREAT ADVISORY FEED -->
+        <div class="section-box">
+            <h3>🚨 Module 3: Cyber Threat Intelligence & Advisories</h3>
+            <p style="font-size: 14px; color: #94a3b8; margin: 0 0 15px 0;">Real-time critical security guidelines to prevent daily cyber frauds.</p>
+            
+            <div class="news-card">
+                <div class="news-title">⚠️ UPI & Part-Time Job Scam Advisory</div>
+                <div class="news-desc">Hacker channels are targetting Telegram/WhatsApp users with fake 'Like and Earn' jobs. Never deposit money for task returns.</div>
+            </div>
+            
+            <div class="news-card" style="border-left-color: #f59e0b;">
+                <div class="news-title">🔒 Multi-Factor Authentication (MFA) Alert</div>
+                <div class="news-desc">Ensure WhatsApp Two-Step Verification is active. Hackers are using social engineering to steal dynamic login OTPs.</div>
+            </div>
+            
+            <div class="news-card" style="border-left-color: #3b82f6;">
+                <div class="news-title">📋 Security Standard Guidelines</div>
+                <div class="news-desc">According to standard cyber hygiene best practices, reset router default admin panels and clean browser session cookies every 15 days.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">Submitted for GTU Cyber Security Program © 2026</div>
+
+    <script>
+        function analyzePassword() {
+            let password = document.getElementById('passwordInput').value;
+            let status = document.getElementById('statusLabel');
+            let crackTime = document.getElementById('crackTimeLabel');
+            
+            if(password.length === 0) {
+                status.innerText = "Status: Waiting for input...";
+                status.style.color = "#e2e8f0";
+                crackTime.innerText = "Estimated Crack Time: N/A";
+                return;
+            }
+            
+            let points = 0;
+            if(password.length >= 8) points++;
+            if(/[A-Z]/.test(password)) points++;
+            if(/[0-9]/.test(password)) points++;
+            if(/[^A-Za-z0-9]/.test(password)) points++;
+            
+            if(password.length < 5) {
+                status.innerText = "🔴 DANGEROUSLY WEAK";
+                status.style.color = "#ef4444";
+                crackTime.innerText = "Estimated Crack Time: Instantly (In 1 Sec)";
+            } else if(points <= 2 && password.length < 8) {
+                status.innerText = "🔴 WEAK (Easy to Hack)";
+                status.style.color = "#ef4444";
+                crackTime.innerText = "Estimated Crack Time: Around 5 Minutes";
+            } else if(points <= 3 && password.length >= 8) {
+                status.innerText = "🟡 MEDIUM (Safe but can improve)";
+                status.style.color = "#f59e0b";
+                crackTime.innerText = "Estimated Crack Time: 2 Months";
+            } else {
+                status.innerText = "🟢 EXTREMELY STRONG (Hacker-Proof)";
+                status.style.color = "#10b981";
+                crackTime.innerText = "Estimated Crack Time: 400+ Years";
+            }
+        }
+
+        function generateSecurePassword() {
+            let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+            let securePass = "";
+            for (let i = 0; i < 14; i++) {
+                securePass += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('passwordInput').value = securePass;
+            analyzePassword();
+        }
+
+        function checkQuiz(isCorrect) {
+            let quizRes = document.getElementById('quiz-result');
+            quizRes.style.display = "block";
+            if(isCorrect) {
+                quizRes.innerText = "🎉 Correct Answer! Bank never asks for sensitive links via SMS.";
+                quizRes.style.color = "#10b981";
+            } else {
+                quizRes.innerText = "❌ Wrong Answer! That's a Phishing attack. Try again.";
+                quizRes.style.color = "#ef4444";
+            }
+        }
+    </script>
+</body>
+</html>
