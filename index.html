@@ -1,143 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Security Awareness Tool</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0b0f19; color: #e2e8f0; margin: 0; padding: 0; padding-bottom: 30px; }
-        .navbar { background: #1e293b; padding: 15px; display: flex; justify-content: center; gap: 15px; border-bottom: 2px solid #334155; position: sticky; top: 0; z-index: 100; }
-        .nav-btn { background: #334155; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
-        .nav-btn.active, .nav-btn:hover { background: #2563eb; }
-        .header-main { background: #111827; padding: 25px 20px; text-align: center; border-bottom: 1px solid #1e293b; }
-        h1 { color: #3b82f6; font-size: 24px; margin: 0; }
-        .student-info { font-size: 13px; color: #38bdf8; margin-top: 8px; font-weight: bold; line-height: 1.5; }
-        .container { max-width: 650px; margin: 25px auto; padding: 0 15px; }
-        .page { display: none; background: #1e293b; padding: 25px; border-radius: 12px; border: 1px solid #334155; text-align: left; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-        .page.active { display: block; }
-        h2 { color: #f1f5f9; border-bottom: 2px solid #334155; padding-bottom: 8px; margin-top: 0; font-size: 20px; }
-        input[type="text"] { width: 100%; padding: 12px; margin: 12px 0; border-radius: 6px; border: 2px solid #475569; background: #0f172a; color: white; font-size: 16px; box-sizing: border-box; }
-        .result { margin: 15px 0; font-weight: bold; font-size: 16px; padding: 12px; border-radius: 6px; background: #0f172a; text-align: center; }
-        button { background: #2563eb; color: white; padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 10px; }
-        button:hover { background: #1d4ed8; }
-        .quiz-card { background: #0f172a; padding: 20px; border-radius: 8px; border: 1px solid #475569; margin-bottom: 15px; }
-        .quiz-option { background: #1e293b; padding: 12px; margin: 8px 0; border-radius: 6px; cursor: pointer; border: 1px solid #475569; font-size: 15px; transition: 0.2s; }
-        .quiz-option:hover { background: #334155; border-color: #3b82f6; }
-        .news-card { background: #0f172a; padding: 15px; margin-top: 15px; border-radius: 8px; border-left: 4px solid #ef4444; }
-        .news-title { font-weight: bold; color: #f8fafc; font-size: 16px; }
-        .news-desc { font-size: 13px; color: #94a3b8; margin-top: 6px; line-height: 1.4; }
-        .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #64748b; }
+    <title>Cyber Security Awareness tool</title>
+  
+    <link href="https://jsdelivr.net" rel="stylesheet">
+<style >
+
+        body, .card, .btn, input {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
     </style>
 </head>
-<body>
+<body class="bg-body-tertiary py-5">
 
-    <div class="navbar">
-        <button class="nav-btn active" onclick="switchPage('dashboard', this)">📰 Threat Dashboard</button>
-        <button class="nav-btn" onclick="switchPage('scanner', this)">🛡️ Password Scanner</button>
-        <button class="nav-btn" onclick="switchPage('quiz', this)">🧠 Fraud Awareness Quiz</button>
-    </div>
-
-    <div class="header-main">
-        <h1>Cyber Security Awareness Tool</h1>
-        <div class="student-info">
-            Name: Krupali Manojbhai Jagatiya  &nbsp;|&nbsp; Enrollment No:  <br>
-            College: Government Polytechnic Porbandar &nbsp;|&nbsp;
-        </div>
-    </div>
-
-    <div class="container">
-
-        <div id="dashboard" class="page active">
-            <h2>📰 Live Cyber Threat Advisories</h2>
-            <p style="font-size: 14px; color: #94a3b8;">Current global security trends and critical user alerts.</p>
-            <div class="news-card">
-                <div class="news-title">⚠️ UPI & Part-Time Job Scams</div>
-                <div class="news-desc">Attackers are targeting users via WhatsApp/Telegram offering high payments for YouTube likes. Never authorize unknown UPI mandates.</div>
-            </div>
-            <div class="news-card" style="border-left-color: #f59e0b;">
-                <div class="news-title">🔒 Critical WhatsApp Session Hijacking</div>
-                <div class="news-desc">New social engineering trick bypasses Two-Step Verification using lookalike dynamic verification links. Enable biometric lock.</div>
-            </div>
-            <div class="news-card" style="border-left-color: #3b82f6;">
-                <div class="news-title">📋 Security Standard Guidelines</div>
-                <div class="news-desc">According to standard cyber hygiene best practices, reset router default admin panels and clean browser session cookies every 15 days to avoid identity theft.</div>
+    <div class="container" style="max-width: 800px;">
+        
+        <!-- Header, Navigation, and Dark Mode Toggle Button -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">
+            <h2 class="fw-bold mb-0 text-primary">🛡️ Cyber Security Dashboard</h2>
+            
+            <div class="d-flex align-items-center gap-2">
+                <!-- Page Navigation Group -->
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary id-nav-btn active" onclick="switchPage('analyzer', this)">Password Analyzer</button>
+                    <button type="button" class="btn btn-outline-primary id-nav-btn" onclick="switchPage('quiz', this)">Awareness Quiz</button>
+                </div>
+                
+                <!-- Dark / Light Mode Toggle Button -->
+                <button id="themeToggleBtn" class="btn btn-secondary" onclick="toggleTheme()">🌙 Dark Mode</button>
             </div>
         </div>
 
-        <div id="scanner" class="page">
-            <h2>🛡️ Brute-Force Vulnerability Scanner</h2>
-            <p style="font-size: 14px; color: #94a3b8;">Input a password to simulate security strength against dictionary and brute-force cracking tools.</p>
-            <input type="text" id="passwordInput" placeholder="Type a password to audit..." oninput="analyzePassword()">
-            <div id="statusLabel" class="result">Status: Awaiting Input...</div>
-            <div id="crackTimeLabel" class="result" style="color: #60a5fa; background: #0f172a;">Estimated Brute-Force Time: N/A</div>
-            <button onclick="generateSecurePassword()">⚡ Generate Hacker-Proof Core Password</button>
-        </div>
+        <!-- PAGE 1: Password Analyzer Panel -->
+        <div id="page-analyzer" class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">🔑 Password Strength Analyzer</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label fw-bold">Apna Password Enter Karein:</label>
+                    <input type="password" id="passwordInput" class="form-control form-control-lg" placeholder="Type password here..." oninput="analyzePassword()">
+                </div>
+                
+                <div class="d-grid gap-2 mb-4">
+                    <button class="btn btn-dark" onclick="generateSecurePassword()">🚀 Generate Secure Password</button>
+                </div>
 
-        <div id="quiz" class="page">
-            <h2>🧠 Common Cyber Fraud Protection Test</h2>
-            <p style="font-size: 14px; color: #94a3b8; margin-bottom: 20px;">Daily life me hone wale digital scams se bachne ke liye ye 5 aasan sawalon ke jawab dein:</p>
-            <div id="quiz-container">
-                <div class="quiz-card">
-                    <p id="question-text" style="font-weight: bold; color: #f8fafc; margin-top: 0; line-height: 1.5;"></p>
-                    <div id="options-area"></div>
+                <!-- Status Alerts Box -->
+                <div class="p-3 border rounded bg-body">
+                    <div id="statusLabel" class="fw-bold fs-5 mb-2 text-secondary">Status: Awaiting Input...</div>
+                    <div id="crackTimeLabel" class="text-muted small">Estimated Brute-Force Time: N/A</div>
                 </div>
             </div>
-            <div id="quiz-final-result" class="result" style="display:none; background: #111827; border: 1px solid #334155;"></div>
         </div>
 
-    </div>
+        <!-- PAGE 2: Quiz Panel -->
+        <div id="page-quiz" class="card shadow-sm d-none">
+            <div class="card-header bg-success text-white">
+                <h5 class="card-title mb-0">📝 Cyber Awareness Quiz</h5>
+            </div>
+            <div class="card-body">
+                <!-- Quiz Dynamic Container -->
+                <div id="quiz-container">
+                    <h5 id="question-text" class="mb-4 fw-bold">Question will load here...</h5>
+                    <div id="options-area" class="d-grid gap-2">
+                        <!-- Options dynamically injected via JavaScript -->
+                    </div>
+                </div>
 
-    <div class="footer">GTU Cyber Security Specialization Project © 2026 | Developed for Final Submission</div>
+                <!-- Quiz Final Result Panel (Hidden by default) -->
+                <div id="quiz-final-result" class="d-none text-center py-4">
+                    <h3 class="fw-bold mb-3">📊 Quiz Result & Analytics</h3>
+                    <div id="quiz-score" class="fs-3 text-primary mb-2 fw-bold"></div>
+                    <div id="quiz-status" class="fw-bold fs-5 mb-3"></div>
+                    <p class="text-muted small border-top pt-3">Maksad: Ye test aam janta ko KBC, OLX, WhatsApp, aur Bank KYC fraud se bachane ke liye design kiya gaya hai.</p>
+                    <button class="btn btn-success mt-3" onclick="resetQuiz()">Retake Awareness Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript Logic -->
     <script>
+        // 🌓 Dark / Light Mode Toggle Logic using Bootstrap 5 Attributes
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const currentTheme = htmlElement.getAttribute('data-bs-theme');
+            const themeBtn = document.getElementById('themeToggleBtn');
+            
+            if (currentTheme === 'light') {
+                htmlElement.setAttribute('data-bs-theme', 'dark');
+                themeBtn.textContent = '☀️ Light Mode';
+                themeBtn.className = 'btn btn-light';
+            } else {
+                htmlElement.setAttribute('data-bs-theme', 'light');
+                themeBtn.textContent = '🌙 Dark Mode';
+                themeBtn.className = 'btn btn-secondary';
+            }
+        }
+
+        // Page Switching Logic
         function switchPage(pageId, btnElement) {
-            let pages = document.querySelectorAll('.page');
-            pages.forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            let buttons = document.querySelectorAll('.nav-btn');
+            if (pageId === 'analyzer') {
+                document.getElementById('page-analyzer').classList.remove('d-none');
+                document.getElementById('page-quiz').classList.add('d-none');
+            } else if (pageId === 'quiz') {
+                document.getElementById('page-analyzer').classList.add('d-none');
+                document.getElementById('page-quiz').classList.remove('d-none');
+                resetQuiz();
+            }
+
+            // Fix button active states
+            let buttons = document.querySelectorAll('.id-nav-btn');
             buttons.forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
-            if(pageId === 'quiz') { resetQuiz(); }
         }
 
         function analyzePassword() {
             let password = document.getElementById('passwordInput').value;
             let status = document.getElementById('statusLabel');
             let crackTime = document.getElementById('crackTimeLabel');
+            
             if(password.length === 0) {
-                status.innerText = "Status: Awaiting Input...";
-                status.style.color = "#e2e8f0";
-                crackTime.innerText = "Estimated Brute-Force Time: N/A";
+                status.textContent = "Status: Awaiting Input...";
+                status.className = "fw-bold fs-5 mb-2 text-secondary";
+                crackTime.textContent = "Estimated Brute-Force Time: N/A";
                 return;
             }
+
             let points = 0;
             if(password.length >= 10) points++;
             if(/[A-Z]/.test(password)) points++;
             if(/[0-9]/.test(password)) points++;
             if(/[^A-Za-z0-9]/.test(password)) points++;
             
+            // Text color logic optimized for both light and dark themes
             if(password.length < 6) {
-                status.innerText = "🔴 CRITICAL RISK (Instantly Crackable)";
-                status.style.color = "#ef4444";
-                crackTime.innerText = "Estimated Brute-Force Time: Less than 1 Second";
+                status.textContent = "🔴 CRITICAL RISK (Instantly Crackable)";
+                status.className = "fw-bold fs-5 mb-2 text-danger";
+                crackTime.textContent = "Estimated Brute-Force Time: Less than 1 Second";
             } else if(points <= 2 && password.length < 9) {
-                status.innerText = "🔴 WEAK VULNERABILITY (High Risk)";
-                status.style.color = "#ef4444";
-                crackTime.innerText = "Estimated Brute-Force Time: ~4 to 12 Minutes";
+                status.textContent = "🔴 WEAK VULNERABILITY (High Risk)";
+                status.className = "fw-bold fs-5 mb-2 text-danger";
+                crackTime.textContent = "Estimated Brute-Force Time: ~4 to 12 Minutes";
             } else if(points <= 3 && password.length >= 9) {
-                status.innerText = "🟡 COMPLIANT (Medium Strength)";
-                status.style.color = "#f59e0b";
-                crackTime.innerText = "Estimated Brute-Force Time: 6 to 18 Months";
+                status.textContent = "🟡 COMPLIANT (Medium Strength)";
+                status.className = "fw-bold fs-5 mb-2 text-warning";
+                crackTime.textContent = "Estimated Brute-Force Time: 6 to 18 Months";
             } else {
-                status.innerText = "🟢 SECURE ARCHITECTURE (Hacker-Proof)";
-                status.style.color = "#10b981";
-                crackTime.innerText = "Estimated Brute-Force Time: 5,000+ Years";
+                status.textContent = "🟢 SECURE ARCHITECTURE (Hacker-Proof)";
+                status.className = "fw-bold fs-5 mb-2 text-success";
+                crackTime.textContent = "Estimated Brute-Force Time: 5,000+ Years";
             }
         }
 
+        // Cryptographically secure password generator using Web Crypto API
         function generateSecurePassword() {
             let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             let securePass = "";
-            for (let i = 0; i < 15; i++) { securePass += chars.charAt(Math.floor(Math.random() * chars.length)); }
+            let randomValues = new Uint32Array(15);
+            window.crypto.getRandomValues(randomValues);
+            
+            for (let i = 0; i < 15; i++) {
+                securePass += chars.charAt(randomValues[i] % chars.length);
+            }
             document.getElementById('passwordInput').value = securePass;
             analyzePassword();
         }
@@ -155,35 +182,44 @@
         function loadQuestion() {
             if(currentQuestionIndex < quizData.length) {
                 let currentQ = quizData[currentQuestionIndex];
-                document.getElementById('question-text').innerText = currentQ.q;
-                let optionsArea = document.getElementById('options-area'); optionsArea.innerHTML = "";
+                document.getElementById('question-text').textContent = currentQ.q;
+                let optionsArea = document.getElementById('options-area'); 
+                optionsArea.innerHTML = "";
+                
                 currentQ.o.forEach((opt, idx) => {
-                    let div = document.createElement('div'); div.className = "quiz-option"; div.innerText = opt;
-                    div.onclick = () => selectOption(idx); optionsArea.appendChild(div);
+                    let btn = document.createElement('button'); 
+                    // Bootstrap outline button adapts nicely to both dark and light modes
+                    btn.className = "btn btn-outline-secondary text-start p-3 my-1 fs-6"; 
+                    btn.textContent = opt;
+                    btn.onclick = () => selectOption(idx); 
+                    optionsArea.appendChild(btn);
                 });
             } else { showQuizResult(); }
         }
 
         function selectOption(selectedIndex) {
             if(selectedIndex === quizData[currentQuestionIndex].a) { userScore++; }
-            currentQuestionIndex++; loadQuestion();
+            currentQuestionIndex++; 
+            loadQuestion();
         }
 
         function showQuizResult() {
-            document.getElementById('quiz-container').style.display = "none";
-            let finalRes = document.getElementById('quiz-final-result'); finalRes.style.display = "block";
+            document.getElementById('quiz-container').classList.add('d-none');
+            
+            let finalRes = document.getElementById('quiz-final-result'); 
+            finalRes.classList.remove('d-none');
+            
             let rating = userScore === 5 ? "🟢 SECURE CITIZEN (Aap Cyber Safe Hain!)" : (userScore >= 3 ? "🟡 MODERATE RISK (Aapko thoda dhyan rakhna hoga)" : "🔴 HIGH FRAUD RISK (Aap aasani se fraud ke shikar ho sakte hain!)");
-            finalRes.innerHTML = `<h3>📊 Quiz Result & Analytics</h3>
-                                  <p style='font-size:22px; color:#3b82f6; margin:10px 0;'>Your Score: ${userScore} / ${quizData.length}</p>
-                                  <p style='font-weight:bold; font-size:16px;'>Security Status: ${rating}</p>
-                                  <p style='font-size:13px; color:#94a3b8; margin-top:10px;'>Maksad: Ye test aam janta ko KBC, OLX, WhatsApp, aur Bank KYC fraud se bachane ke liye design kiya gaya hai.</p>
-                                  <button onclick='resetQuiz()' style='margin-top:15px; background:#10b981;'>Retake Awareness Test</button>`;
+            
+            document.getElementById('quiz-score').textContent = `Your Score: ${userScore} / ${quizData.length}`;
+            document.getElementById('quiz-status').textContent = `Security Status: ${rating}`;
         }
 
         function resetQuiz() {
-            currentQuestionIndex = 0; userScore = 0;
-            document.getElementById('quiz-container').style.display = "block";
-            document.getElementById('quiz-final-result').style.display = "none";
+            currentQuestionIndex = 0; 
+            userScore = 0;
+            document.getElementById('quiz-container').classList.remove('d-none');
+            document.getElementById('quiz-final-result').classList.add('d-none');
             loadQuestion();
         }
         loadQuestion();
