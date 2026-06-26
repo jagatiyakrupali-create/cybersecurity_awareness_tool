@@ -17,23 +17,23 @@
 
     <div class="container" style="max-width: 800px;">
         
-        <!-- Header, Navigation, and Dark Mode Toggle Button -->
+  
         <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">
-            <h2 class="fw-bold mb-0 text-primary">🛡️ Cyber Security Dashboard</h2>
+            <h2 class="fw-bold mb-0 text-primary">🛡️ Cyber Security Awareness </h2>
             
             <div class="d-flex align-items-center gap-2">
-                <!-- Page Navigation Group -->
+                
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-outline-primary id-nav-btn active" onclick="switchPage('analyzer', this)">Password Analyzer</button>
                     <button type="button" class="btn btn-outline-primary id-nav-btn" onclick="switchPage('quiz', this)">Awareness Quiz</button>
                 </div>
                 
-                <!-- Dark / Light Mode Toggle Button -->
+                
                 <button id="themeToggleBtn" class="btn btn-secondary" onclick="toggleTheme()">🌙 Dark Mode</button>
             </div>
         </div>
 
-        <!-- PAGE 1: Password Analyzer Panel -->
+        
         <div id="page-analyzer" class="card shadow-sm mb-4">
             <div class="card-header bg-primary text-white">
                 <h5 class="card-title mb-0">🔑 Password Strength Analyzer</h5>
@@ -48,7 +48,7 @@
                     <button class="btn btn-dark" onclick="generateSecurePassword()">🚀 Generate Secure Password</button>
                 </div>
 
-                <!-- Status Alerts Box -->
+                
                 <div class="p-3 border rounded bg-body">
                     <div id="statusLabel" class="fw-bold fs-5 mb-2 text-secondary">Status: Awaiting Input...</div>
                     <div id="crackTimeLabel" class="text-muted small">Estimated Brute-Force Time: N/A</div>
@@ -56,21 +56,21 @@
             </div>
         </div>
 
-        <!-- PAGE 2: Quiz Panel -->
+     
         <div id="page-quiz" class="card shadow-sm d-none">
             <div class="card-header bg-success text-white">
                 <h5 class="card-title mb-0">📝 Cyber Awareness Quiz</h5>
             </div>
             <div class="card-body">
-                <!-- Quiz Dynamic Container -->
+                
                 <div id="quiz-container">
                     <h5 id="question-text" class="mb-4 fw-bold">Question will load here...</h5>
                     <div id="options-area" class="d-grid gap-2">
-                        <!-- Options dynamically injected via JavaScript -->
+                     
                     </div>
                 </div>
 
-                <!-- Quiz Final Result Panel (Hidden by default) -->
+               
                 <div id="quiz-final-result" class="d-none text-center py-4">
                     <h3 class="fw-bold mb-3">📊 Quiz Result & Analytics</h3>
                     <div id="quiz-score" class="fs-3 text-primary mb-2 fw-bold"></div>
@@ -81,9 +81,8 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript Logic -->
+   
     <script>
-        // 🌓 Dark / Light Mode Toggle Logic using Bootstrap 5 Attributes
         function toggleTheme() {
             const htmlElement = document.documentElement;
             const currentTheme = htmlElement.getAttribute('data-bs-theme');
@@ -100,7 +99,6 @@
             }
         }
 
-        // Page Switching Logic
         function switchPage(pageId, btnElement) {
             if (pageId === 'analyzer') {
                 document.getElementById('page-analyzer').classList.remove('d-none');
@@ -147,15 +145,12 @@
             } else if(points <= 3 && password.length >= 9) {
                 status.textContent = "🟡 COMPLIANT (Medium Strength)";
                 status.className = "fw-bold fs-5 mb-2 text-warning";
-                crackTime.textContent = "Estimated Brute-Force Time: 6 to 18 Months";
+               crack.textContent = "Estimated Time: 6 to 18 Months";
             } else {
-                status.textContent = "🟢 SECURE ARCHITECTURE (Hacker-Proof)";
-                status.className = "fw-bold fs-5 mb-2 text-success";
-                crackTime.textContent = "Estimated Brute-Force Time: 5,000+ Years";
+                status.textContent = "🟢 SECURE ARCHITECTURE (Hacker-Proof)"; status.className = "fw-bold fs-6 mb-1 text-success";
+                crack.textContent = "Estimated Time: 5,000+ Years";
             }
         }
-
-        // Cryptographically secure password generator using Web Crypto API
         function generateSecurePassword() {
             let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             let securePass = "";
@@ -176,16 +171,14 @@
             { q: "Q4. Bank KYC update karne ke liye ya Electricity Bill baki hone ka urgent anjaan SMS/SMS link aaye to kya karna safe hai?", o: ["A) Link par click karke apni detail bhar dein.", "B) Bank ya electricity office ke official number par khud contact karke verify karein, link par click na karein.", "C) Apne sabhi friends ko ye message forward karein."], a: 1 },
             { q: "Q5. Road par ya kahin anjaan jagah par khoya hua naya USB/Pen Drive mile to use apne laptop me lagana chahiye?", o: ["A) Haan, check karein ki andar kya data hai.", "B) Bilkul nahi, usme virus/malware ho sakta hai jo system ko hack kar dega.", "C) Laga sakte hain agar laptop me antivirus ho to."], a: 1 }
         ];
-
+        
         let currentQuestionIndex = 0; let userScore = 0;
-
         function loadQuestion() {
             if(currentQuestionIndex < quizData.length) {
                 let currentQ = quizData[currentQuestionIndex];
                 document.getElementById('question-text').textContent = currentQ.q;
                 let optionsArea = document.getElementById('options-area'); 
                 optionsArea.innerHTML = "";
-                
                 currentQ.o.forEach((opt, idx) => {
                     let btn = document.createElement('button'); 
                     // Bootstrap outline button adapts nicely to both dark and light modes
@@ -195,14 +188,12 @@
                     optionsArea.appendChild(btn);
                 });
             } else { showQuizResult(); }
-        }
-
+                    }
         function selectOption(selectedIndex) {
             if(selectedIndex === quizData[currentQuestionIndex].a) { userScore++; }
             currentQuestionIndex++; 
             loadQuestion();
         }
-
         function showQuizResult() {
             document.getElementById('quiz-container').classList.add('d-none');
             
@@ -213,9 +204,7 @@
             
             document.getElementById('quiz-score').textContent = `Your Score: ${userScore} / ${quizData.length}`;
             document.getElementById('quiz-status').textContent = `Security Status: ${rating}`;
-        }
-
-        function resetQuiz() {
+        } function resetQuiz() {
             currentQuestionIndex = 0; 
             userScore = 0;
             document.getElementById('quiz-container').classList.remove('d-none');
