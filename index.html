@@ -41,8 +41,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             border: 1px solid #374151;
         }
-
-        /* Navigation Tabs */
         .tabs {
             display: flex;
             background-color: var(--card-bg);
@@ -67,7 +65,6 @@
             color: white;
         }
 
-        /* Header Credentials */
         .header-info {
             padding: 20px;
             text-align: center;
@@ -86,7 +83,6 @@
             line-height: 1.6;
         }
 
-        /* Content Sections */
         .content-section {
             display: none;
             padding: 20px;
@@ -96,7 +92,6 @@
             display: block;
         }
 
-        /* Dashboard/Advisories Style */
         .section-title {
             font-size: 20px;
             margin-bottom: 15px;
@@ -138,7 +133,6 @@
             line-height: 1.5;
         }
 
-        /* Password Scanner Style */
         .input-group {
             margin-bottom: 20px;
         }
@@ -184,7 +178,6 @@
             background-color: #1d4ed8;
         }
 
-        /* Quiz Style */
         .quiz-card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -228,7 +221,6 @@
             border-color: white;
         }
 
-        /* Quiz Result */
         .result-box {
             text-align: center;
             padding: 20px;
@@ -240,8 +232,6 @@
             color: var(--accent-blue);
             margin: 15px 0;
         }
-
-        /* Footer */
         .footer {
             text-align: center;
             font-size: 11px;
@@ -295,8 +285,10 @@
 
         <div class="input-group">
             <input type="password" id="passwordInput" placeholder="Type a password to audit..." oninput="auditPassword()">
+            <input type="checkbox" id="togglePassword" onchange="togglePasswordVisibility()" style="margin-top: 10px; cursor: pointer;"> 
+    <label for="togglePassword" style="font-size: 13px; color: var(--text-muted); cursor: pointer;">Show Password</label>
         </div>
-
+  
         <div id="statusIndicator" class="status-box" style="background-color: #334155; color: white;">
             Status: Awaiting Input...
         </div>
@@ -357,8 +349,6 @@
             timeBox.innerText = "Estimated Brute-Force Time: N/A";
             return;
         }
-
-        // Simple Strength Logic rules matching your screenshots
         if (password.length <= 4) {
             statusBox.style.backgroundColor = '#ef4444';
             statusBox.innerText = "🔴 CRITICAL RISK (Instantly Crackable)";
@@ -380,13 +370,24 @@
 
     function generateSecurePassword() {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$";
-        let newPass = "Karuap@123_"; // Mock dynamic generation similar to screen
+        let newPass = ""; 
         for (let i = 0; i < 3; i++) {
             newPass += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         document.getElementById('passwordInput').value = newPass;
         auditPassword();
     }
+    function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('passwordInput');
+    const checkbox = document.getElementById('togglePassword');
+    
+    if (checkbox.checked) {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+}
+
 
     // Quiz Data
     const quizData = [
@@ -503,7 +504,7 @@
         loadQuestion();
     }
 
-    // Initialize Quiz on load
+   
     window.onload = loadQuestion;
 </script>
 
